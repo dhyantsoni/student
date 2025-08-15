@@ -15,6 +15,13 @@ Hi! My name is [Your Full Name].
 | Scrummer     | Avantika | github.com/avantika/student         | downstream (fork)     | student   |
 | Scrummer     | Aadit    | github.com/aaadit/student           | downstream (fork)     | student   |
 
+| Name     | Repo Location                       | Repo Name |
+|----------|-------------------------------------|-----------|
+| Dhyan    | github.com/dhyantsoni/student       | student   |
+| Lucas    | github.com/mataiodoxion/mataiodoxion_2026         | mataiodoxion_2026  |
+| Sathwik  | github.com/wick2009/student         | student   |
+| Arnav    | github.com/arnavpallapotu/student         | student   |
+
 
 ## Links to Learning
 
