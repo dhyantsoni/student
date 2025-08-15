@@ -15,12 +15,14 @@ Hi! My name is [Your Full Name].
 | Scrummer     | Avantika | github.com/avantika/student         | downstream (fork)     | student   |
 | Scrummer     | Aadit    | github.com/aaadit/student           | downstream (fork)     | student   |
 
-| Name     | Repo Location                       | Repo Name |
-|----------|-------------------------------------|-----------|
-| Dhyan    | github.com/dhyantsoni/student       | student   |
-| Lucas    | github.com/mataiodoxion/mataiodoxion_2026         | mataiodoxion_2026  |
-| Sathwik  | github.com/wick2009/student         | student   |
-| Arnav    | github.com/arnavpallapotu/student         | student   |
+| Name     | Repo Location                             | Repo Name          |
+|----------|-------------------------------------------|--------------------|
+| Dhyan    | <a href="https://github.com/dhyantsoni/student">
+    <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Dhyan's Github">
+</a>github.com/dhyantsoni/student             | student            |
+| Lucas    | github.com/mataiodoxion/mataiodoxion_2026 | mataiodoxion_2026  |
+| Sathwik  | github.com/wick2009/student               | student            |
+| Arnav    | github.com/arnavpallapotu/student         | student            |
 
 
 ## Links to Learning
@@ -28,6 +30,10 @@ Hi! My name is [Your Full Name].
 ### Development Environment
 
 > Coding starts with tools, explore these tools and procedures with a click.
+
+
+
+
 
 <a href="https://github.com/Open-Coding-Society/student">
     <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub">
