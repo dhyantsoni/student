@@ -1,12 +1,12 @@
 ---
 layout: base
-title: I'm Dhyan Soni
+title: I'm [Your Full Name]
 hide: true
 ---
 
 ### Me and Team
 
-Hi! My name is Dhyan Soni.
+Hi! My name is [Your Full Name].
 
 | Role         | Name     | Repo Location                       | Stream                | Repo Name |
 |--------------|----------|-------------------------------------|-----------------------|-----------|
@@ -17,7 +17,9 @@ Hi! My name is Dhyan Soni.
 
 | Name     | Repo Location                             | Repo Name          |
 |----------|-------------------------------------------|--------------------|
-| Dhyan    | https://github.com/dhyantsoni/student     | student            |
+| Dhyan    | <a href="https://github.com/dhyantsoni/student">
+    <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Dhyan's Github">
+</a>github.com/dhyantsoni/student             | student            |
 | Lucas    | github.com/mataiodoxion/mataiodoxion_2026 | mataiodoxion_2026  |
 | Sathwik  | github.com/wick2009/student               | student            |
 | Arnav    | github.com/arnavpallapotu/student         | student            |
