@@ -1,23 +1,26 @@
 title: Open Coding 
-description: "Class of 2028"
-owner_name: Dhyan Soni
-github_username: dhyantsoni 
-github_repo: "student" 
-baseurl: "/student" 
+description: "Class of 2026"
+owner_name: Open Coding Society 
+github_username: open-coding-society 
+github_repo: "pages" 
+baseurl: "" 
 future: true
-remote_theme: jekyll/minima
+
 minima:
-  skin: solarized-dark
+  skin: dark
   social_links:
     - { platform: github, user_url: "https://github.com/open-coding-society" }
     - { platform: x, user_url: "https://x.com/Open_Coding" }
     - { platform: youtube, user_url: "https://www.youtube.com/@OpenCodingSociety" } 
 
+remote_theme: pages-themes/cayman@v0.2.0
 plugins:
   - jekyll-remote-theme
 
 header_pages:
+  - navigation/section/csse.md
+  - navigation/section/csp.md
+  - navigation/section/csa.md 
   - navigation/blog.md
   - navigation/search.md
-  - navigation/about.md
   - navigation/logintoolkit.md
