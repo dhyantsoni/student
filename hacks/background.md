@@ -1,14 +1,18 @@
 ---
+# YML defintion of metadata for file, used by GH pages
 layout: base
 title: Background with Object
 description: Use JavaScript to have an in motion background.
+# These are locations of images in this Game
 sprite: images/platformer/sprites/flying-ufo.png
 background: images/platformer/backgrounds/alien_planet1.jpg
 permalink: /background
 ---
 
+<!-- HTML for where Game is stored -->
 <canvas id="world"></canvas>
 
+<!-- Script logic for the Game -->
 <script>
   const canvas = document.getElementById("world");
   const ctx = canvas.getContext('2d');
@@ -75,6 +79,9 @@ permalink: /background
         this.frame++;
       }
     }
+
+    // Game world is master class for the entire game 
+    // the game loop is inside
 
     class GameWorld {
       static gameSpeed = 5;
