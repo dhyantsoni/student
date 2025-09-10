@@ -93,7 +93,7 @@ permalink: /background
     // the game loop is inside
 
     class GameWorld {
-      static gameSpeed = 5;
+      static gameSpeed = 200;
       constructor(backgroundImg, spriteImg) {
         this.canvas = document.getElementById("world");
         this.ctx = this.canvas.getContext('2d');
