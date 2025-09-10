@@ -14,13 +14,16 @@ permalink: /background
 
 <!-- Script logic for the Game -->
 <script>
+  // Get canvas and context for drawing
   const canvas = document.getElementById("world");
   const ctx = canvas.getContext('2d');
+  // Load background and sprite images
   const backgroundImg = new Image();
   const spriteImg = new Image();
   backgroundImg.src = '{{page.background}}';
   spriteImg.src = '{{page.sprite}}';
 
+  // Track image loading before starting game
   let imagesLoaded = 0;
   backgroundImg.onload = function() {
     imagesLoaded++;
@@ -34,6 +37,7 @@ permalink: /background
   function startGameWorld() {
     if (imagesLoaded < 2) return;
 
+    // Base class for all game objects (background, player, etc.)
     class GameObject {
       constructor(image, width, height, x = 0, y = 0, speedRatio = 0) {
         this.image = image;
@@ -50,20 +54,24 @@ permalink: /background
       }
     }
 
+    // Handles scrolling background effect
     class Background extends GameObject {
       constructor(image, gameWorld) {
         // Fill entire canvas
         super(image, gameWorld.width, gameWorld.height, 0, 0, 0.1);
       }
       update() {
+        // Move background for scrolling effect
         this.x = (this.x - this.speed) % this.width;
       }
       draw(ctx) {
+        // Draw two images for seamless scroll
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
       }
     }
 
+    // Player object with simple floating animation
     class Player extends GameObject {
       constructor(image, gameWorld) {
         const width = image.naturalWidth / 2;
@@ -75,6 +83,7 @@ permalink: /background
         this.frame = 0;
       }
       update() {
+        // Animate player up and down
         this.y = this.baseY + Math.sin(this.frame * 0.05) * 20;
         this.frame++;
       }
@@ -98,11 +107,13 @@ permalink: /background
         this.canvas.style.left = `0px`;
         this.canvas.style.top = `${(window.innerHeight - this.height) / 2}px`;
 
+        // Add background and player to game objects
         this.objects = [
          new Background(backgroundImg, this),
          new Player(spriteImg, this)
         ];
       }
+      // Main game loop: update and draw all objects
       gameLoop() {
         this.ctx.clearRect(0, 0, this.width, this.height);
         for (const obj of this.objects) {
@@ -116,6 +127,7 @@ permalink: /background
       }
     }
 
+    // Start the game
     const world = new GameWorld(backgroundImg, spriteImg);
     world.start();
   }
