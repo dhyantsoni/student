@@ -1,7 +1,10 @@
 source "https://rubygems.org"
 
-gem "github-pages", group: :jekyll_plugins
-
+gem "jekyll", "~> 4.3"
+gem "jekyll-remote-theme"
+gem "minima", "~> 2.5"
 gem "webrick", "~> 1.7"
-
 gem "execjs", "~> 2.8"
+gem "csv"
+gem "bigdecimal"
+gem "base64"
