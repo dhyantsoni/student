@@ -1,6 +1,6 @@
 ---
 # YML defintion of metadata for file, used by GH pages
-layout: base
+layout: opencs
 title: Background with Object
 description: Use JavaScript to have an in motion background.
 # These are locations of images in this Game
