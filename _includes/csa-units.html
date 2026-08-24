@@ -1,0 +1,255 @@
+{%- comment -%}
+CSA unit navigator.
+
+Renders one tab per unit in _data/csa_units.yml, with a chip per lesson linking
+straight to that lesson's page. Lesson pages come from _notebooks/CSA and are
+matched by permalink, so the navigator stays correct as lessons are added.
+
+Usage:
+  {% include csa-units.html %}                 <- all units, first one open
+  {% include csa-units.html open=2 %}          <- open Unit 2 first
+  {% include csa-units.html heading=false %}   <- skip the built-in heading
+{%- endcomment -%}
+
+{%- assign open_unit = include.open | default: 1 -%}
+{%- assign csa_posts = site.posts | where_exp: "p", "p.permalink contains '/csa/unit_0'" -%}
+
+<div class="csa-nav" id="csa-nav">
+  {%- if include.heading != false %}
+  <div class="csa-nav__head">
+    <h3 class="csa-nav__title">AP Computer Science A</h3>
+    <p class="csa-nav__sub">Every unit and lesson in one place. Pick a unit, then jump to any topic.</p>
+  </div>
+  {%- endif %}
+
+  <div class="csa-nav__tabs" role="tablist" aria-label="CSA units">
+    {%- for unit in site.data.csa_units %}
+    <button type="button"
+            class="csa-nav__tab{% if unit.number == open_unit %} is-active{% endif %}"
+            role="tab"
+            id="csa-tab-{{ unit.number }}"
+            aria-controls="csa-panel-{{ unit.number }}"
+            aria-selected="{% if unit.number == open_unit %}true{% else %}false{% endif %}"
+            data-csa-tab="{{ unit.number }}"
+            style="--csa-accent: {{ unit.accent }};">
+      <span class="csa-nav__tab-num">Unit {{ unit.number }}</span>
+      <span class="csa-nav__tab-title">{{ unit.title }}</span>
+    </button>
+    {%- endfor %}
+  </div>
+
+  {%- for unit in site.data.csa_units %}
+    {%- assign unit_prefix = '/csa/' | append: unit.slug | append: '/' -%}
+    {%- assign unit_posts = csa_posts | where_exp: "p", "p.permalink contains unit_prefix" -%}
+    {%- assign quiz_link = unit_prefix | append: 'quiz' -%}
+    {%- assign quiz_post = unit_posts | where: "permalink", quiz_link | first -%}
+
+    {%- comment -%} Count lessons that have real content, for the progress bar. {%- endcomment -%}
+    {%- assign done_count = 0 -%}
+    {%- for n in (1..unit.topics) -%}
+      {%- assign tlink = unit_prefix | append: unit.number | append: '_' | append: n -%}
+      {%- assign tpost = unit_posts | where: "permalink", tlink | first -%}
+      {%- if tpost -%}
+        {%- assign body = tpost.content | strip_html | strip -%}
+        {%- if body.size > 400 -%}{%- assign done_count = done_count | plus: 1 -%}{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign pct = done_count | times: 100 | divided_by: unit.topics -%}
+
+  <section class="csa-nav__panel{% if unit.number == open_unit %} is-active{% endif %}"
+           id="csa-panel-{{ unit.number }}"
+           role="tabpanel"
+           aria-labelledby="csa-tab-{{ unit.number }}"
+           data-csa-panel="{{ unit.number }}"
+           style="--csa-accent: {{ unit.accent }};">
+
+    <div class="csa-nav__panel-head">
+      <div>
+        <span class="csa-nav__panel-eyebrow">Unit {{ unit.number }}</span>
+        <h4 class="csa-nav__panel-title">{{ unit.title }}</h4>
+      </div>
+      <div class="csa-nav__progress" title="{{ done_count }} of {{ unit.topics }} lessons have work in them">
+        <div class="csa-nav__progress-bar"><span style="width: {{ pct }}%;"></span></div>
+        <span class="csa-nav__progress-label">{{ done_count }}/{{ unit.topics }}</span>
+      </div>
+    </div>
+
+    <div class="csa-nav__chips">
+      {%- for n in (1..unit.topics) -%}
+        {%- assign tlink = unit_prefix | append: unit.number | append: '_' | append: n -%}
+        {%- assign tpost = unit_posts | where: "permalink", tlink | first -%}
+        {%- assign hw1 = tlink | append: '/homework' -%}
+        {%- assign hw2 = tlink | append: '_hw' -%}
+        {%- assign hw3 = tlink | append: '_homework' -%}
+        {%- assign hwpost = unit_posts | where: "permalink", hw1 | first -%}
+        {%- unless hwpost %}{% assign hwpost = unit_posts | where: "permalink", hw2 | first %}{% endunless -%}
+        {%- unless hwpost %}{% assign hwpost = unit_posts | where: "permalink", hw3 | first %}{% endunless -%}
+        {%- if tpost -%}
+          {%- assign body = tpost.content | strip_html | strip -%}
+      <span class="csa-nav__chip-wrap">
+        <a class="csa-nav__chip{% if body.size <= 400 %} is-empty{% endif %}"
+           href="{{ site.baseurl }}{{ tpost.permalink }}"
+           title="{{ tpost.title | strip_html | escape }}">
+          <span class="csa-nav__chip-num">{{ unit.number }}.{{ n }}</span>
+          <span class="csa-nav__chip-name">{{ tpost.title | strip_html | escape }}</span>
+        </a>
+        {%- if hwpost %}
+        <a class="csa-nav__hw" href="{{ site.baseurl }}{{ hwpost.permalink }}" title="Homework for {{ unit.number }}.{{ n }}">HW</a>
+        {%- endif %}
+      </span>
+        {%- else -%}
+      <span class="csa-nav__chip-wrap">
+        <span class="csa-nav__chip is-missing" title="Not published yet">
+          <span class="csa-nav__chip-num">{{ unit.number }}.{{ n }}</span>
+          <span class="csa-nav__chip-name">Coming soon</span>
+        </span>
+      </span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if quiz_post %}
+    <div class="csa-nav__panel-foot">
+      <a class="csa-nav__quiz" href="{{ site.baseurl }}{{ quiz_post.permalink }}">Unit {{ unit.number }} Quiz &rarr;</a>
+    </div>
+    {%- endif %}
+  </section>
+  {%- endfor %}
+</div>
+
+<style>
+.csa-nav {
+  border: 1px solid var(--ui-border, #33415580);
+  background: var(--panel, #0f172a1a);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 8px 0 24px;
+}
+.csa-nav__head { margin-bottom: 14px; }
+.csa-nav__title { margin: 0 0 4px; font-size: 1.25rem; }
+.csa-nav__sub { margin: 0; font-size: 0.9rem; color: var(--text-muted, #94a3b8); }
+
+.csa-nav__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.csa-nav__tab {
+  flex: 1 1 160px;
+  display: flex; flex-direction: column; gap: 2px;
+  text-align: left; cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid var(--ui-border, #33415580);
+  border-left: 4px solid var(--csa-accent);
+  border-radius: 8px;
+  background: var(--ui-bg, transparent);
+  color: inherit; font: inherit;
+  transition: background 0.15s, transform 0.15s;
+}
+.csa-nav__tab:hover { background: var(--panel-mid, #1e293b40); transform: translateY(-1px); }
+.csa-nav__tab.is-active { background: var(--panel-mid, #1e293b66); border-color: var(--csa-accent); }
+.csa-nav__tab-num { font-weight: 700; font-size: 0.95rem; }
+.csa-nav__tab-title { font-size: 0.8rem; color: var(--text-muted, #94a3b8); }
+
+.csa-nav__panel { display: none; }
+.csa-nav__panel.is-active { display: block; }
+
+.csa-nav__panel-head {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.csa-nav__panel-eyebrow {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--csa-accent);
+}
+.csa-nav__panel-title { margin: 2px 0 0; font-size: 1.05rem; }
+.csa-nav__progress { display: flex; align-items: center; gap: 8px; }
+.csa-nav__progress-bar {
+  width: 120px; height: 6px; border-radius: 999px;
+  background: var(--ui-border, #33415580); overflow: hidden;
+}
+.csa-nav__progress-bar span { display: block; height: 100%; background: var(--csa-accent); }
+.csa-nav__progress-label { font-size: 0.78rem; color: var(--text-muted, #94a3b8); }
+
+.csa-nav__chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.csa-nav__chip-wrap { display: flex; align-items: stretch; gap: 4px; min-width: 0; }
+/* The extra .csa-nav prefix keeps these ahead of the theme's own link colors. */
+.csa-nav a.csa-nav__chip {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 8px 10px;
+  border: 1px solid var(--ui-border, #33415580);
+  border-radius: 6px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.csa-nav__chip {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 8px 10px;
+  border: 1px solid var(--ui-border, #33415580);
+  border-radius: 6px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.csa-nav__chip:hover { border-color: var(--csa-accent); background: var(--panel-mid, #1e293b40); transform: translateY(-1px); }
+.csa-nav__chip-num { font-weight: 700; font-size: 0.85rem; color: var(--csa-accent); }
+.csa-nav__chip-name {
+  font-size: 0.78rem; color: var(--text-muted, #94a3b8);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.csa-nav__chip.is-empty { opacity: 0.75; border-style: dashed; }
+.csa-nav__chip.is-missing { opacity: 0.4; border-style: dashed; cursor: default; }
+.csa-nav__chip.is-missing:hover { transform: none; background: none; border-color: var(--ui-border, #33415580); }
+
+.csa-nav a.csa-nav__hw, .csa-nav__hw {
+  display: flex; align-items: center;
+  padding: 0 8px; border-radius: 6px;
+  border: 1px solid var(--csa-accent);
+  color: var(--csa-accent) !important; text-decoration: none;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+}
+.csa-nav a.csa-nav__hw:hover, .csa-nav__hw:hover { background: var(--csa-accent); color: var(--pref-bg-color, #0b1220) !important; }
+
+.csa-nav__panel-foot { margin-top: 14px; }
+.csa-nav a.csa-nav__quiz, .csa-nav__quiz {
+  display: inline-block; padding: 8px 16px;
+  border-radius: 6px; border: 1px solid var(--csa-accent);
+  color: var(--csa-accent) !important; text-decoration: none; font-weight: 700; font-size: 0.85rem;
+}
+.csa-nav a.csa-nav__quiz:hover, .csa-nav__quiz:hover { background: var(--csa-accent); color: var(--pref-bg-color, #0b1220) !important; }
+
+@media (max-width: 520px) {
+  .csa-nav__chips { grid-template-columns: 1fr; }
+  .csa-nav__tab { flex-basis: 100%; }
+}
+</style>
+
+<script>
+(function () {
+  var root = document.getElementById('csa-nav');
+  if (!root) return;
+
+  var tabs = root.querySelectorAll('[data-csa-tab]');
+  var panels = root.querySelectorAll('[data-csa-panel]');
+
+  function show(id) {
+    tabs.forEach(function (t) {
+      var on = t.dataset.csaTab === id;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(function (p) {
+      p.classList.toggle('is-active', p.dataset.csaPanel === id);
+    });
+    try { localStorage.setItem('csa-nav-unit', id); } catch (e) {}
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { show(t.dataset.csaTab); });
+  });
+
+  // Reopen whichever unit was last viewed.
+  try {
+    var saved = localStorage.getItem('csa-nav-unit');
+    if (saved && root.querySelector('[data-csa-panel="' + saved + '"]')) show(saved);
+  } catch (e) {}
+})();
+</script>

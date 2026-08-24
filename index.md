@@ -5,28 +5,15 @@ hide: true
 show_reading_time: false
 ---
 
-### Me and Team
+Hi! My name is **Dhyan Soni**. This is my Open Coding Society portfolio, where I keep my AP Computer Science A lessons and homework, my tech foundation blogs, and the projects I build in class.
 
-Hi! My name is [Your Full Name].
+### AP CSA Units
 
-| Role         | Name     | Repo Location                       | Stream                | Repo Name |
-|--------------|----------|-------------------------------------|-----------------------|-----------|
-| Scrum Master | John     | github.com/jm1021/student           | upstream (OCS fork)   | student   |
-| Scrummer     | Torin    | github.com/torin/student            | downstream (fork)     | student   |
-| Scrummer     | Avantika | github.com/avantika/student         | downstream (fork)     | student   |
-| Scrummer     | Aadit    | github.com/aaadit/student           | downstream (fork)     | student   |
+> All four units, every lesson, one click away. Pick a unit to see its topics.
 
-| Name     | Repo Location                             | Repo Name          |
-|----------|-------------------------------------------|--------------------|
-| Dhyan    | <a href="https://github.com/dhyantsoni/student">
-    <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Dhyan's Github">
-</a>github.com/dhyantsoni/student             | student            |
-| Lucas    | github.com/mataiodoxion/mataiodoxion_2026 | mataiodoxion_2026  |
-| Sathwik  | github.com/wick2009/student               | student            |
-| Arnav    | github.com/arnavpallapotu/student         | student            |
+{% include csa-units.html heading=false %}
 
-
-## Links to Learning
+<br>
 
 ### Development Environment
 
@@ -38,13 +25,13 @@ Hi! My name is [Your Full Name].
         <img src="{{ '/favicon.ico' | relative_url }}" alt="OCS logo" style="width: 16px; height: 16px;">
         OCS
     </a>
-    <a href="https://github.com/Open-Coding-Society/student" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #FFF; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
+    <a href="https://github.com/dhyantsoni/student" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #FFF; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
         <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
         </svg>
-        GitHub
+        My GitHub
     </a>
-    <a href="https://open-coding-society.github.io/student" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #327FC7; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
+    <a href="https://dhyantsoni.github.io/student" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #327FC7; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
         GitHub Pages
     </a>
     <a href="https://kasm.opencodingsociety.com/" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #6b4bd3; border-radius: 6px; font-weight: 700; transition: all 0.3s;">

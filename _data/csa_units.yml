@@ -1,0 +1,23 @@
+# Drives the CSA unit navigator (_includes/csa-units.html).
+# `topics` is how many numbered lessons the unit has in the AP CSA framework.
+# Add a unit here and the navigator picks it up automatically.
+- number: 1
+  slug: unit_01
+  title: Using Objects and Methods
+  topics: 15
+  accent: "#3b82f6"
+- number: 2
+  slug: unit_02
+  title: Selection and Iteration
+  topics: 12
+  accent: "#22c55e"
+- number: 3
+  slug: unit_03
+  title: Class Creation
+  topics: 9
+  accent: "#f59e0b"
+- number: 4
+  slug: unit_04
+  title: Data Collections
+  topics: 12
+  accent: "#a855f7"

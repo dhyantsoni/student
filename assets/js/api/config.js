@@ -5,17 +5,30 @@
 
 export const baseurl = "{{ site.baseurl }}";
 
+// Flip a flag to true when you are running that backend yourself on localhost.
+// When false, localhost talks to the deployed backend instead.
+//
+// Heads up on the code runners: the deployed backends only return CORS headers
+// on the OPTIONS preflight for https://open-coding-society.github.io and
+// https://opencodingsociety.com. From any other origin (this fork's GitHub Pages
+// site, or localhost) the browser blocks the request before it is sent, and the
+// runner shows "Error: Failed to fetch". Getting this origin added to the
+// backend allowlist is the fix; running a backend locally is the workaround.
+const USE_LOCAL_PYTHON_BACKEND = false;
+const USE_LOCAL_JAVA_BACKEND = false;
+
+const isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
 export var pythonURI;
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+if (isLocalhost && USE_LOCAL_PYTHON_BACKEND) {
     pythonURI = "http://localhost:8587";  // Same URI for localhost or 127.0.0.1
 } else {
     pythonURI = "https://flask.opencodingsociety.com";
-
 }
 
 export var javaURI;
 // 127.0.0.1:8585 does not work for some machines
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+if (isLocalhost && USE_LOCAL_JAVA_BACKEND) {
         javaURI = "http://localhost:8585";
 } else {
     javaURI = "https://spring.opencodingsociety.com";
